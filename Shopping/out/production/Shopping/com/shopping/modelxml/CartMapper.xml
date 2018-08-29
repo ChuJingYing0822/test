@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shopping.mapper.CartMapper">
+  <resultMap id="BaseResultMap" type="com.shopping.pojo.Cart">
+    <id column="cart_cust_id" jdbcType="VARCHAR" property="custId" />
+    <result column="cart_cart_id" jdbcType="INTEGER" property="cartId" />
+    <result column="cart_goods_id" jdbcType="VARCHAR" property="goodsId" />
+    <result column="cart_quality" jdbcType="INTEGER" property="quality" />
+    <result column="cart_add_time" jdbcType="DATE" property="addTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cart.cust_id as cart_cust_id, cart.cart_id as cart_cart_id, cart.goods_id as cart_goods_id, 
+    cart.quality as cart_quality, cart.add_time as cart_add_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cart cart
+    where cart.cust_id = #{custId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from cart
+    where cust_id = #{custId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.shopping.pojo.Cart">
+    insert into cart (cust_id, cart_id, goods_id, 
+      quality, add_time)
+    values (#{custId,jdbcType=VARCHAR}, #{cartId,jdbcType=INTEGER}, #{goodsId,jdbcType=VARCHAR}, 
+      #{quality,jdbcType=INTEGER}, #{addTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shopping.pojo.Cart">
+    insert into cart
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="custId != null">
+        cust_id,
+      </if>
+      <if test="cartId != null">
+        cart_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="quality != null">
+        quality,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="custId != null">
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="cartId != null">
+        #{cartId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="quality != null">
+        #{quality,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shopping.pojo.Cart">
+    update cart
+    <set>
+      <if test="cartId != null">
+        cart_id = #{cartId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="quality != null">
+        quality = #{quality,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=DATE},
+      </if>
+    </set>
+    where cust_id = #{custId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shopping.pojo.Cart">
+    update cart
+    set cart_id = #{cartId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      quality = #{quality,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=DATE}
+    where cust_id = #{custId,jdbcType=VARCHAR}
+  </update>
+</mapper>

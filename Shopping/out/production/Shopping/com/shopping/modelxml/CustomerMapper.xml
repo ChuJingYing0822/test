@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shopping.mapper.CustomerMapper">
+  <resultMap id="BaseResultMap" type="com.shopping.pojo.Customer">
+    <id column="customer_cust_id" jdbcType="VARCHAR" property="custId" />
+    <result column="customer_cust_name" jdbcType="VARCHAR" property="custName" />
+    <result column="customer_cust_pwd" jdbcType="VARCHAR" property="custPwd" />
+    <result column="customer_cust_age" jdbcType="INTEGER" property="custAge" />
+    <result column="customer_cust_phone" jdbcType="INTEGER" property="custPhone" />
+    <result column="customer_cust_email" jdbcType="VARCHAR" property="custEmail" />
+    <result column="customer_cust_create_time" jdbcType="DATE" property="custCreateTime" />
+    <result column="customer_cust_update_time" jdbcType="DATE" property="custUpdateTime" />
+    <result column="customer_cust_profile" jdbcType="VARCHAR" property="custProfile" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    customer.cust_id as customer_cust_id, customer.cust_name as customer_cust_name, customer.cust_pwd as customer_cust_pwd, 
+    customer.cust_age as customer_cust_age, customer.cust_phone as customer_cust_phone, 
+    customer.cust_email as customer_cust_email, customer.cust_create_time as customer_cust_create_time, 
+    customer.cust_update_time as customer_cust_update_time, customer.cust_profile as customer_cust_profile
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from customer customer
+    where customer.cust_id = #{custId,jdbcType=VARCHAR}
+  </select>
+  <select id = "fuzzyByNameAndEmail" parameterType="hashmap" resultMap="BaseResultMap">
+        select cust_id, cust_name ,cust_age,cust_phone ,cust_email,cust_profile
+        from customer
+        where cust_name like "%"#{custName}"%" and cust_email like "%"#{custEmail}"%"
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from customer
+    where cust_id = #{custId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.shopping.pojo.Customer">
+    insert into customer (cust_id, cust_name, cust_pwd, 
+      cust_age, cust_phone, cust_email, 
+      cust_create_time, cust_update_time, cust_profile
+      )
+    values (#{custId,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, #{custPwd,jdbcType=VARCHAR}, 
+      #{custAge,jdbcType=INTEGER}, #{custPhone,jdbcType=INTEGER}, #{custEmail,jdbcType=VARCHAR}, 
+      #{custCreateTime,jdbcType=DATE}, #{custUpdateTime,jdbcType=DATE}, #{custProfile,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shopping.pojo.Customer">
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="custId != null">
+        cust_id,
+      </if>
+      <if test="custName != null">
+        cust_name,
+      </if>
+      <if test="custPwd != null">
+        cust_pwd,
+      </if>
+      <if test="custAge != null">
+        cust_age,
+      </if>
+      <if test="custPhone != null">
+        cust_phone,
+      </if>
+      <if test="custEmail != null">
+        cust_email,
+      </if>
+      <if test="custCreateTime != null">
+        cust_create_time,
+      </if>
+      <if test="custUpdateTime != null">
+        cust_update_time,
+      </if>
+      <if test="custProfile != null">
+        cust_profile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="custId != null">
+        #{custId,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null">
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="custPwd != null">
+        #{custPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="custAge != null">
+        #{custAge,jdbcType=INTEGER},
+      </if>
+      <if test="custPhone != null">
+        #{custPhone,jdbcType=INTEGER},
+      </if>
+      <if test="custEmail != null">
+        #{custEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="custCreateTime != null">
+        #{custCreateTime,jdbcType=DATE},
+      </if>
+      <if test="custUpdateTime != null">
+        #{custUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="custProfile != null">
+        #{custProfile,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shopping.pojo.Customer">
+    update customer
+    <set>
+      <if test="custName != null">
+        cust_name = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="custPwd != null">
+        cust_pwd = #{custPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="custAge != null">
+        cust_age = #{custAge,jdbcType=INTEGER},
+      </if>
+      <if test="custPhone != null">
+        cust_phone = #{custPhone,jdbcType=INTEGER},
+      </if>
+      <if test="custEmail != null">
+        cust_email = #{custEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="custCreateTime != null">
+        cust_create_time = #{custCreateTime,jdbcType=DATE},
+      </if>
+      <if test="custUpdateTime != null">
+        cust_update_time = #{custUpdateTime,jdbcType=DATE},
+      </if>
+      <if test="custProfile != null">
+        cust_profile = #{custProfile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where cust_id = #{custId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shopping.pojo.Customer">
+    update customer
+    set cust_name = #{custName,jdbcType=VARCHAR},
+      cust_pwd = #{custPwd,jdbcType=VARCHAR},
+      cust_age = #{custAge,jdbcType=INTEGER},
+      cust_phone = #{custPhone,jdbcType=INTEGER},
+      cust_email = #{custEmail,jdbcType=VARCHAR},
+      cust_create_time = #{custCreateTime,jdbcType=DATE},
+      cust_update_time = #{custUpdateTime,jdbcType=DATE},
+      cust_profile = #{custProfile,jdbcType=VARCHAR}
+    where cust_id = #{custId,jdbcType=VARCHAR}
+  </update>
+</mapper>

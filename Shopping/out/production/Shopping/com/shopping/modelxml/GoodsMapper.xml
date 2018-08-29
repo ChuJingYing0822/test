@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shopping.mapper.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.shopping.pojo.Goods">
+    <id column="goods_goods_id" jdbcType="VARCHAR" property="goodsId" />
+    <result column="goods_goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="goods_goods_desc" jdbcType="VARCHAR" property="goodsDesc" />
+    <result column="goods_goods_price" jdbcType="DOUBLE" property="goodsPrice" />
+    <result column="goods_goods_sale_count" jdbcType="INTEGER" property="goodsSaleCount" />
+    <result column="goods_goods_img_path" jdbcType="VARCHAR" property="goodsImgPath" />
+    <result column="goods_goods_clicks" jdbcType="INTEGER" property="goodsClicks" />
+    <result column="goods_goods_inventory" jdbcType="INTEGER" property="goodsInventory" />
+    <result column="goods_goods_status" jdbcType="VARCHAR" property="goodsStatus" />
+    <result column="goods_category_id" jdbcType="VARCHAR" property="categoryId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    goods.goods_id as goods_goods_id, goods.goods_name as goods_goods_name, goods.goods_desc as goods_goods_desc, 
+    goods.goods_price as goods_goods_price, goods.goods_sale_count as goods_goods_sale_count, 
+    goods.goods_img_path as goods_goods_img_path, goods.goods_clicks as goods_goods_clicks, 
+    goods.goods_inventory as goods_goods_inventory, goods.goods_status as goods_goods_status, 
+    goods.category_id as goods_category_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goods goods
+    where goods.goods_id = #{goodsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from goods
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.shopping.pojo.Goods">
+    insert into goods (goods_id, goods_name, goods_desc, 
+      goods_price, goods_sale_count, goods_img_path, 
+      goods_clicks, goods_inventory, goods_status, 
+      category_id)
+    values (#{goodsId,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{goodsDesc,jdbcType=VARCHAR}, 
+      #{goodsPrice,jdbcType=DOUBLE}, #{goodsSaleCount,jdbcType=INTEGER}, #{goodsImgPath,jdbcType=VARCHAR}, 
+      #{goodsClicks,jdbcType=INTEGER}, #{goodsInventory,jdbcType=INTEGER}, #{goodsStatus,jdbcType=VARCHAR}, 
+      #{categoryId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shopping.pojo.Goods">
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="goodsName != null">
+        goods_name,
+      </if>
+      <if test="goodsDesc != null">
+        goods_desc,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="goodsSaleCount != null">
+        goods_sale_count,
+      </if>
+      <if test="goodsImgPath != null">
+        goods_img_path,
+      </if>
+      <if test="goodsClicks != null">
+        goods_clicks,
+      </if>
+      <if test="goodsInventory != null">
+        goods_inventory,
+      </if>
+      <if test="goodsStatus != null">
+        goods_status,
+      </if>
+      <if test="categoryId != null">
+        category_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDesc != null">
+        #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsSaleCount != null">
+        #{goodsSaleCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodsImgPath != null">
+        #{goodsImgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsClicks != null">
+        #{goodsClicks,jdbcType=INTEGER},
+      </if>
+      <if test="goodsInventory != null">
+        #{goodsInventory,jdbcType=INTEGER},
+      </if>
+      <if test="goodsStatus != null">
+        #{goodsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shopping.pojo.Goods">
+    update goods
+    <set>
+      <if test="goodsName != null">
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDesc != null">
+        goods_desc = #{goodsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        goods_price = #{goodsPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="goodsSaleCount != null">
+        goods_sale_count = #{goodsSaleCount,jdbcType=INTEGER},
+      </if>
+      <if test="goodsImgPath != null">
+        goods_img_path = #{goodsImgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsClicks != null">
+        goods_clicks = #{goodsClicks,jdbcType=INTEGER},
+      </if>
+      <if test="goodsInventory != null">
+        goods_inventory = #{goodsInventory,jdbcType=INTEGER},
+      </if>
+      <if test="goodsStatus != null">
+        goods_status = #{goodsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shopping.pojo.Goods">
+    update goods
+    set goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_desc = #{goodsDesc,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=DOUBLE},
+      goods_sale_count = #{goodsSaleCount,jdbcType=INTEGER},
+      goods_img_path = #{goodsImgPath,jdbcType=VARCHAR},
+      goods_clicks = #{goodsClicks,jdbcType=INTEGER},
+      goods_inventory = #{goodsInventory,jdbcType=INTEGER},
+      goods_status = #{goodsStatus,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=VARCHAR}
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+</mapper>

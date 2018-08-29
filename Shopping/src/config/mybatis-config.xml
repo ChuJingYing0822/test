@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+		PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		"https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="logImpl" value="LOG4J2"/>
+	</settings>
+	<!--
+	<typeAliases>
+		<typeAlias alias="Customer" type="com.mybatisdemo.mapper.CustomerMapper.Customer"/>
+		<typeAlias alias="Goods" type="com.mybatisdemo.mapper.GoodsImpl.Goods"/>
+		<typeAlias alias="GoodsType" type="com.mybatisdemo.mapper.GoodsImpl.GoodsType"/>
+	</typeAliases>
+	-->
+	<environments default="mysql_development">
+		<!-- 连接环境信息 -->
+		<environment id="mysql_development">
+			<!-- mysql使用什么事物管理方式 -->
+			<transactionManager type="JDBC">
+				<property name="" value="" />
+			</transactionManager>
+
+			<!-- mybatis使用连接池方式来获取连接对象 -->
+			<dataSource type="POOLED">
+				<!-- 配置数据库连接信息 -->
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://localhost:3306/shopping?characterEncoding=utf-8&amp;useSSL=false" />
+				<property name="username" value="root" />
+				<property name="password" value="root" />
+
+				<property name="poolMaximumIdleConnections" value="0"/>
+				<property name="poolMaximumActiveConnections" value="1000"/>
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="com/shopping/modelxml/CartMapper.xml"/>
+		<mapper resource="com/shopping/modelxml/CustomerLoginMapper.xml"/>
+		<mapper resource="com/shopping/modelxml/CustomerMapper.xml"/>
+		<mapper resource="com/shopping/modelxml/GoodsCategoryMapper.xml"/>
+		<mapper resource="com/shopping/modelxml/GoodsMapper.xml"/>
+		<mapper resource="com/shopping/modelxml/MyorderMapper.xml"/>
+		<mapper resource="com/shopping/modelxml/OrderDetailMapper.xml"/>
+	</mappers>
+
+</configuration>
